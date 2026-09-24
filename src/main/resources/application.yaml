@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: email-sender-service
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS}
+    producer:
+      transaction-id-prefix: email-sender-tx-
+    consumer:
+      group-id: email-sender-service
+      value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        connectiontimeout: 10000
+        timeout: 10000
+        writetimeout: 10000
+kafka:
+  topics:
+    sending-email: ${KAFKA_SENDING_EMAIL_TOPIC}
+mail:
+  from: ${MAIL_FROM_EMAIL}
